@@ -7,7 +7,7 @@ import TransformButton from './buttons/TransformButton';
 import KeyMapButton from './buttons/KeyMapButton';
 
 export default function Toolbar(props) {
-  let {parser, transformer, showTransformer} = props;
+  let { parser, transformer, showTransformer } = props;
   let parserInfo = parser.id;
   let transformerInfo = '';
   if (parser) {
@@ -35,12 +35,10 @@ export default function Toolbar(props) {
     <div id="Toolbar">
       <h1>AST Explorer</h1>
       <SnippetButton {...props} />
-      <CategoryButton {...props} />
       <ParserButton {...props} />
       <TransformButton {...props} />
-      <KeyMapButton {...props} />
       <a
-        style={{minWidth: 0}}
+        style={{ minWidth: 0 }}
         target="_blank" rel="noopener noreferrer"
         title="Help"
         href="https://github.com/fkling/astexplorer/blob/master/README.md">

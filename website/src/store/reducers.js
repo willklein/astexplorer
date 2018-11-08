@@ -1,5 +1,5 @@
 import * as actions from './actions';
-import {getCategoryByID, getDefaultParser, getParserByID, getTransformerByID} from '../parsers';
+import { getCategoryByID, getDefaultParser, getParserByID, getTransformerByID } from '../parsers';
 
 const defaultParser = getDefaultParser(getCategoryByID('javascript'));
 
@@ -31,7 +31,7 @@ const initialState = {
     parserSettings: null,
     parseError: null,
     code: defaultParser.category.codeExample,
-    keyMap: 'default',
+    keyMap: 'sublime',
     initialCode: defaultParser.category.codeExample,
     transform: {
       code: '',
@@ -61,7 +61,7 @@ export function persist(state) {
  * When read from persistent storage, set the last stored code as initial version.
  * This is necessary because we use CodeMirror as an uncontrolled component.
  */
-export function revive(state=initialState) {
+export function revive(state = initialState) {
   return {
     ...state,
     workbench: {
@@ -76,7 +76,7 @@ export function revive(state=initialState) {
   };
 }
 
-export function astexplorer(state=initialState, action) {
+export function astexplorer(state = initialState, action) {
   return {
     // UI related state
     showSettingsDialog: showSettingsDialog(state.showSettingsDialog, action),
@@ -99,12 +99,12 @@ export function astexplorer(state=initialState, action) {
   };
 }
 
-function format(state=initialState.enableFormatting, action) {
+function format(state = initialState.enableFormatting, action) {
   if (action.type === actions.TOGGLE_FORMATTING) return !state;
   return state;
 }
 
-function workbench(state=initialState.workbench, action, fullState) {
+function workbench(state = initialState.workbench, action, fullState) {
 
   function parserFromCategory(category) {
     const parser = fullState.parserPerCategory[category.id] ||
@@ -131,12 +131,12 @@ function workbench(state=initialState.workbench, action, fullState) {
         initialCode: action.text,
       };
     case actions.SET_PARSE_ERROR:
-      return {...state, parseError: action.error};
+      return { ...state, parseError: action.error };
     case actions.SET_PARSER_SETTINGS:
-      return {...state, parserSettings: action.settings};
+      return { ...state, parserSettings: action.settings };
     case actions.SET_PARSER:
       {
-        const newState = {...state, parser: action.parser.id};
+        const newState = { ...state, parser: action.parser.id };
         if (action.parser !== state.parser) {
           // Update parser settings
           newState.parserSettings =
@@ -145,19 +145,19 @@ function workbench(state=initialState.workbench, action, fullState) {
         return newState;
       }
     case actions.SET_CODE:
-      return {...state, code: action.code};
+      return { ...state, code: action.code };
     case actions.SELECT_TRANSFORMER:
       {
         const differentParser =
           action.transformer.defaultParserID !== state.parser;
         const differentTransformer =
-          action.transformer.id !== state.transform.transformer ;
+          action.transformer.id !== state.transform.transformer;
 
         if (!(differentParser || differentTransformer)) {
           return state;
         }
 
-        const newState = {...state};
+        const newState = { ...state };
 
         if (differentParser) {
           newState.parser = action.transformer.defaultParserID;
@@ -192,7 +192,7 @@ function workbench(state=initialState.workbench, action, fullState) {
       };
     case actions.SET_SNIPPET:
       {
-        const {revision} = action;
+        const { revision } = action;
 
         const transformerID = revision.getTransformerID();
         const parserID = revision.getParserID();
@@ -233,13 +233,13 @@ function workbench(state=initialState.workbench, action, fullState) {
         return newState;
       }
     case actions.SET_KEY_MAP:
-      return {...state, keyMap: action.keyMap};
+      return { ...state, keyMap: action.keyMap };
     default:
       return state;
   }
 }
 
-function parserSettings(state=initialState.parserSettings, action, fullState) {
+function parserSettings(state = initialState.parserSettings, action, fullState) {
   switch (action.type) {
     case actions.SET_PARSER_SETTINGS:
       if (fullState.activeRevision) {
@@ -256,17 +256,17 @@ function parserSettings(state=initialState.parserSettings, action, fullState) {
   }
 }
 
-function parserPerCategory(state=initialState.parserPerCategory, action) {
+function parserPerCategory(state = initialState.parserPerCategory, action) {
   switch (action.type) {
     case actions.SET_PARSER:
-      return {...state, [action.parser.category.id]: action.parser.id};
+      return { ...state, [action.parser.category.id]: action.parser.id };
     default:
       return state;
   }
 }
 
-function showSettingsDialog(state=initialState.showSettingsDialog, action) {
-  switch(action.type) {
+function showSettingsDialog(state = initialState.showSettingsDialog, action) {
+  switch (action.type) {
     case actions.OPEN_SETTINGS_DIALOG:
       return true;
     case actions.CLOSE_SETTINGS_DIALOG:
@@ -276,8 +276,8 @@ function showSettingsDialog(state=initialState.showSettingsDialog, action) {
   }
 }
 
-function showShareDialog(state=initialState.showShareDialog, action) {
-  switch(action.type) {
+function showShareDialog(state = initialState.showShareDialog, action) {
+  switch (action.type) {
     case actions.OPEN_SHARE_DIALOG:
       return true;
     case actions.CLOSE_SHARE_DIALOG:
@@ -287,8 +287,8 @@ function showShareDialog(state=initialState.showShareDialog, action) {
   }
 }
 
-function loadSnippet(state=initialState.loadingSnippet, action) {
-  switch(action.type) {
+function loadSnippet(state = initialState.loadingSnippet, action) {
+  switch (action.type) {
     case actions.START_LOADING_SNIPPET:
       return true;
     case actions.DONE_LOADING_SNIPPET:
@@ -298,8 +298,8 @@ function loadSnippet(state=initialState.loadingSnippet, action) {
   }
 }
 
-function saving(state=initialState.saving, action) {
-  switch(action.type) {
+function saving(state = initialState.saving, action) {
+  switch (action.type) {
     case actions.START_SAVE:
       return !action.fork;
     case actions.END_SAVE:
@@ -309,8 +309,8 @@ function saving(state=initialState.saving, action) {
   }
 }
 
-function forking(state=initialState.forking, action) {
-  switch(action.type) {
+function forking(state = initialState.forking, action) {
+  switch (action.type) {
     case actions.START_SAVE:
       return action.fork;
     case actions.END_SAVE:
@@ -320,8 +320,8 @@ function forking(state=initialState.forking, action) {
   }
 }
 
-function cursor(state=initialState.cursor, action) {
-  switch(action.type) {
+function cursor(state = initialState.cursor, action) {
+  switch (action.type) {
     case actions.SET_CURSOR:
       return action.cursor;
     case actions.SET_CODE:
@@ -340,7 +340,7 @@ function cursor(state=initialState.cursor, action) {
   }
 }
 
-function error(state=initialState.error, action) {
+function error(state = initialState.error, action) {
   switch (action.type) {
     case actions.SET_ERROR:
       return action.error;
@@ -351,7 +351,7 @@ function error(state=initialState.error, action) {
   }
 }
 
-function showTransformPanel(state=initialState.showTransformPanel, action) {
+function showTransformPanel(state = initialState.showTransformPanel, action) {
   switch (action.type) {
     case actions.SELECT_TRANSFORMER:
       return true;
@@ -366,7 +366,7 @@ function showTransformPanel(state=initialState.showTransformPanel, action) {
   }
 }
 
-function activeRevision(state=initialState.selectedRevision, action) {
+function activeRevision(state = initialState.selectedRevision, action) {
   switch (action.type) {
     case actions.SET_SNIPPET:
       return action.revision;
