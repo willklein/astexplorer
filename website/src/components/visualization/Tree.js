@@ -2,7 +2,7 @@ import Element from './tree/Element';
 import PropTypes from 'prop-types';
 import React from 'react';
 import PubSub from 'pubsub-js';
-import {logEvent} from '../../utils/logger';
+import { logEvent } from '../../utils/logger';
 
 import './css/tree.css'
 
@@ -10,11 +10,16 @@ export default class Tree extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {autofocus: true, hideFunctions: true};
+    this.state = {
+      autofocus: true,
+      hideFunctions: true,
+      hideEmptyKeys: true,
+      hideLocationData: true,
+    };
   }
 
   _setOption(name, event) {
-    this.setState({[name]: event.target.checked});
+    this.setState({ [name]: event.target.checked });
     logEvent(
       'tree_view_settings',
       event.target.checked ? 'enabled' : 'disabled',
@@ -71,7 +76,7 @@ export default class Tree extends React.Component {
             Hide type keys
           </label>
         </div>
-        <ul onMouseLeave={() => {PubSub.publish('CLEAR_HIGHLIGHT');}}>
+        <ul onMouseLeave={() => { PubSub.publish('CLEAR_HIGHLIGHT'); }}>
           <Element
             focusPath={this.props.focusPath}
             value={this.props.ast}
