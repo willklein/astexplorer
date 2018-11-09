@@ -1,6 +1,6 @@
-import {createSelector} from 'reselect';
+import { createSelector } from 'reselect';
 import isEqual from 'lodash.isequal';
-import {getParserByID, getTransformerByID} from '../parsers';
+import { getParserByID, getTransformerByID } from '../parsers';
 
 // UI related
 
@@ -36,6 +36,10 @@ export function isSaving(state) {
   return state.saving;
 }
 
+export function getShowTreeSettings(state) {
+  return state.showTreeSettings;
+}
+
 // Parser related
 
 export function getParser(state) {
@@ -63,7 +67,7 @@ export function getInitialCode(state) {
   return state.workbench.initialCode;
 }
 
-export function getKeyMap (state) {
+export function getKeyMap(state) {
   return state.workbench.keyMap;
 }
 

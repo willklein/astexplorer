@@ -19,28 +19,7 @@ export default function SnippetButton(props) {
       <ul>
         <li><NewButton {...props} /></li>
         <li><SaveButton {...props} /></li>
-        <li><ForkButton {...props} /></li>
-        <li><ShareButton {...props}/></li>
       </ul>
-      <button
-        type="button"
-        title={canForkAndNotSave ? 'Fork' : 'Save'}
-        style={{minWidth: 0}}
-        disabled={
-          savingOrForking || !(props.canSave || props.canFork)
-        }
-        onClick={canForkAndNotSave ? props.onFork : props.onSave}>
-        <i
-          className={cx({
-            fa: true,
-            'fa-spinner': savingOrForking,
-            'fa-pulse': savingOrForking,
-            'fa-floppy-o': !savingOrForking && !canForkAndNotSave,
-            'fa-code-fork': !savingOrForking && canForkAndNotSave,
-            'fa-fw': true,
-          })}
-        />
-      </button>
     </div>
   );
 }

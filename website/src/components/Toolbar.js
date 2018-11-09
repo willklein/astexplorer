@@ -37,17 +37,6 @@ export default function Toolbar(props) {
       <SnippetButton {...props} />
       <ParserButton {...props} />
       <TransformButton {...props} />
-      <a
-        style={{ minWidth: 0 }}
-        target="_blank" rel="noopener noreferrer"
-        title="Help"
-        href="https://github.com/fkling/astexplorer/blob/master/README.md">
-        <i className="fa fa-lg fa-question fa-fw" />
-      </a>
-      <div id="info" className={transformerInfo ? 'small' : ''}>
-        Parser: {parserInfo}<br />
-        {transformerInfo}
-      </div>
     </div>
   );
 }

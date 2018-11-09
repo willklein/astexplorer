@@ -46,8 +46,8 @@ export default class ASTOutput extends React.Component {
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.parser !== this.props.parser ||
-        nextProps.code !== this.props.code ||
-        nextProps.parserSettings !== this.props.parserSettings) {
+      nextProps.code !== this.props.code ||
+      nextProps.parserSettings !== this.props.parserSettings) {
       this._parse(nextProps.parser, nextProps.code, nextProps.parserSettings);
     } else if (nextProps.cursor !== this.props.cursor) {
       this.setState({
@@ -88,21 +88,21 @@ export default class ASTOutput extends React.Component {
       },
       parseError => {
         console.error(parseError); // eslint-disable-line no-console
-        this.setState({parseError, parseTime: null});
+        this.setState({ parseError, parseTime: null });
         this.props.onParseError(parseError);
       }
     );
   }
 
   _changeOutput(event) {
-    this.setState({output: event.target.value});
+    this.setState({ output: event.target.value });
   }
 
   render() {
     let output;
     if (this.state.parseError) {
       output =
-        <div style={{padding: 20}}>
+        <div style={{ padding: 20 }}>
           {this.state.parseError.message}
         </div>;
     } else if (this.state.ast) {
@@ -112,6 +112,7 @@ export default class ASTOutput extends React.Component {
           ast: this.state.ast,
           focusPath: this.state.focusPath,
           parser: this.props.parser,
+          showTreeSettings: this.props.showTreeSettings,
         }
       );
     }
@@ -133,9 +134,13 @@ export default class ASTOutput extends React.Component {
       <div className="output highlight">
         <div className="toolbar">
           {buttons}
-          <span className="time">
-            {formatTime(this.state.parseTime)}
-          </span>
+          <button
+            type="button"
+            title="Tree Settings"
+            style={{ minWidth: 0 }}
+            onClick={this.props.toggleTreeSettings}>
+            <i className="fa fa-cog fa-fw" />
+          </button>
         </div>
         {output}
       </div>
@@ -149,5 +154,7 @@ ASTOutput.propTypes = {
   parserSettings: PropTypes.object,
   cursor: PropTypes.any,
   onParseError: PropTypes.func.isRequired,
+  showTreeSettings: PropTypes.bool.isRequired,
+  toggleTreeSettings: PropTypes.func.isRequired,
 };
 

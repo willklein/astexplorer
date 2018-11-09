@@ -30,7 +30,7 @@ export default class Tree extends React.Component {
   render() {
     return (
       <div className="tree-visualization container">
-        <div className="toolbar">
+        <div className="toolbar" hidden={!this.props.showTreeSettings}>
           <label title="Auto open the node at the cursor in the source code">
             <input
               type="checkbox"
@@ -97,4 +97,5 @@ Tree.propTypes = {
     PropTypes.object,
   ]),
   parser: PropTypes.object,
+  showTreeSettings: PropTypes.bool,
 };

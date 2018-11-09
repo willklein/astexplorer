@@ -1,6 +1,6 @@
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import ASTOutput from '../components/ASTOutput';
-import {setParseError} from '../store/actions';
+import { setParseError, toggleTreeSettings } from '../store/actions';
 import * as selectors from '../store/selectors';
 
 function mapStateToProps(state) {
@@ -9,12 +9,14 @@ function mapStateToProps(state) {
     parser: selectors.getParser(state),
     parserSettings: selectors.getParserSettings(state),
     cursor: selectors.getCursor(state),
+    showTreeSettings: selectors.getShowTreeSettings(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     onParseError: error => dispatch(setParseError(error)),
+    toggleTreeSettings: () => dispatch(toggleTreeSettings()),
   };
 }
 
