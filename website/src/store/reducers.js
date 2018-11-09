@@ -14,7 +14,7 @@ const initialState = {
   cursor: null,
   error: null,
   showTransformPanel: false,
-  showTreeSettings: true,
+  showTreeSettings: false,
 
   // Snippet related state
   selectedRevision: null,
