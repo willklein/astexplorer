@@ -60,6 +60,7 @@ function mapDispatchToProps(dispatch) {
       }
     },
     onIntro: () => dispatch(loadJsSnippet('intro')),
+    onVariables: () => dispatch(loadJsSnippet('variables')),
     onPatterns: () => dispatch(loadJsSnippet('patterns')),
     onTransforms: () => dispatch(loadJsSnippet('transforms')),
     onNew: () => {

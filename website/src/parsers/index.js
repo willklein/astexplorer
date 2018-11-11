@@ -30,9 +30,20 @@ export const categories =
           // intro: localRequire(`./${catName}/snippets/intro.txt`),
           // patterns: localRequire(`./${catName}/snippets/patterns.txt`),
           // transforms: localRequire(`./${catName}/snippets/transforms.txt`),
-          intro: '// introducing... the AST',
-          patterns: 'condition ? truthyResult : falsyResult',
-          transforms: 'const j = { s }',
+          intro: '// 🥁 introducing... the AST',
+          variables: `const asts = 'awesome'
+const cascadiaJS = '❤️'`,
+          patterns: `// 🤭
+condition
+  ? truthyCondition
+    ? truthyTruthyResult
+    : truthyFalsyResult
+  : falsyCondition
+    ? falsyTruthyResult
+    : falsyFalsyResult`,
+          transforms: `// 🙂 => 😎
+const original = { x }
+var result = { x: x }`,
         }
       }
 
