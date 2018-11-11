@@ -1,15 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import ForkButton from './ForkButton';
-import NewButton from './NewButton';
-import SaveButton from './SaveButton';
-import ShareButton from './ShareButton';
-import cx from 'classnames';
 
-export default function SnippetButton(props) {
-  const canForkAndNotSave = props.canFork && !props.canSave;
-  const savingOrForking = props.saving || props.forking;
-
+export default function SnippetButton({ onIntro, onPatterns, onTransforms }) {
   return (
     <div className="button menuButton">
       <span>
@@ -17,18 +9,34 @@ export default function SnippetButton(props) {
         &nbsp;Snippet
       </span>
       <ul>
-        <li><NewButton {...props} /></li>
-        <li><SaveButton {...props} /></li>
+        <li>
+          <button
+            type="button"
+            onClick={onIntro}>
+            <i className="fa fa-file-o fa-fw" />&nbsp;Introduction
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            onClick={onPatterns}>
+            <i className="fa fa-file-o fa-fw" />&nbsp;Patterns
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            onClick={onTransforms}>
+            <i className="fa fa-file-o fa-fw" />&nbsp;Transforms
+          </button>
+        </li>
       </ul>
     </div>
   );
 }
 
 SnippetButton.propTypes = {
-  canFork: PropTypes.bool,
-  canSave: PropTypes.bool,
-  forking: PropTypes.bool,
-  onFork: PropTypes.func,
-  onSave: PropTypes.func,
-  saving: PropTypes.bool,
+  onIntros: PropTypes.func,
+  onPatterns: PropTypes.func,
+  onTransforms: PropTypes.func,
 };

@@ -1,6 +1,6 @@
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import {
-  save,
+  loadJsSnippet,
   selectCategory,
   openSettingsDialog,
   openShareDialog,
@@ -12,14 +12,12 @@ import {
 } from '../store/actions';
 import Toolbar from '../components/Toolbar';
 import * as selectors from '../store/selectors';
-import {logEvent} from '../utils/logger';
+import { logEvent } from '../utils/logger';
 
 function mapStateToProps(state) {
   const parser = selectors.getParser(state);
 
   return {
-    forking: selectors.isForking(state),
-    saving: selectors.isSaving(state),
     canSave: selectors.canSave(state),
     canFork: selectors.canFork(state),
     category: parser.category,
@@ -61,8 +59,9 @@ function mapDispatchToProps(dispatch) {
         logEvent('keyMap', keyMap);
       }
     },
-    onSave: () => dispatch(save(false)),
-    onFork: () => dispatch(save(true)),
+    onIntro: () => dispatch(loadJsSnippet('intro')),
+    onPatterns: () => dispatch(loadJsSnippet('patterns')),
+    onTransforms: () => dispatch(loadJsSnippet('transforms')),
     onNew: () => {
       if (global.location.hash) {
         global.location.hash = '';
@@ -70,6 +69,7 @@ function mapDispatchToProps(dispatch) {
         dispatch(reset());
       }
     },
+
   };
 }
 

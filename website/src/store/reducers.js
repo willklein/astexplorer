@@ -1,5 +1,5 @@
 import * as actions from './actions';
-import { getCategoryByID, getDefaultParser, getParserByID, getTransformerByID } from '../parsers';
+import { getCategoryByID, getDefaultParser, getParserByID, getTransformerByID, getSnippet } from '../parsers';
 
 const defaultParser = getDefaultParser(getCategoryByID('javascript'));
 
@@ -125,7 +125,20 @@ function workbench(state = initialState.workbench, action, fullState) {
     };
   }
 
+  function codeFromSnippet(snippet) {
+    return {
+      code: getSnippet('javascript', snippet),
+      initialCode: getSnippet('javascript', snippet),
+    };
+  }
+
   switch (action.type) {
+    case actions.LOAD_JS_SNIPPET:
+      return {
+        ...state,
+        ...codeFromSnippet(action.snippet),
+      };
+
     case actions.SELECT_CATEGORY:
       return {
         ...state,

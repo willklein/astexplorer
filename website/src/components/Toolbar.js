@@ -1,10 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import CategoryButton from './buttons/CategoryButton';
 import ParserButton from './buttons/ParserButton';
 import SnippetButton from './buttons/SnippetButton';
 import TransformButton from './buttons/TransformButton';
-import KeyMapButton from './buttons/KeyMapButton';
 
 export default function Toolbar(props) {
   let { parser, transformer, showTransformer } = props;
@@ -42,10 +40,9 @@ export default function Toolbar(props) {
 }
 
 Toolbar.propTypes = {
-  saving: PropTypes.bool,
-  forking: PropTypes.bool,
-  onSave: PropTypes.func,
-  onFork: PropTypes.func,
+  onIntro: PropTypes.func,
+  onPatterns: PropTypes.func,
+  onTransforms: PropTypes.func,
   onParserChange: PropTypes.func,
   onParserSettingsButtonClick: PropTypes.func,
   onShareButtonClick: PropTypes.func,
@@ -54,6 +51,4 @@ Toolbar.propTypes = {
   parser: PropTypes.object,
   transformer: PropTypes.object,
   showTransformer: PropTypes.bool,
-  canSave: PropTypes.bool,
-  canFork: PropTypes.bool,
 };

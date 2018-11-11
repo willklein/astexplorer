@@ -26,6 +26,7 @@ export const RESET = 'RESET';
 export const TOGGLE_FORMATTING = 'TOGGLE_FORMATTING';
 export const TOGGLE_TREE_SETTINGS = 'TOGGLE_TREE_SETTINGS';
 export const SET_KEY_MAP = 'SET_KEY_MAP';
+export const LOAD_JS_SNIPPET = 'LOAD_JS_SNIPPET';
 
 export function setParser(parser) {
   return { type: SET_PARSER, parser };
@@ -137,4 +138,8 @@ export function setKeyMap(keyMap) {
 
 export function toggleTreeSettings() {
   return { type: TOGGLE_TREE_SETTINGS };
+}
+
+export function loadJsSnippet(snippet) {
+  return { type: LOAD_JS_SNIPPET, snippet };
 }
