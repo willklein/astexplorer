@@ -120,6 +120,11 @@ html {
   vertical-align: top;
 }
 
+#Toolbar > img {
+  min-width: auto;
+  margin-right: 10px;
+}
+
 #Toolbar > * button {
   height: 100%;
   border: none;

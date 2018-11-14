@@ -31,6 +31,7 @@ export default function Toolbar(props) {
 
   return (
     <div id="Toolbar">
+      <img src="./cascadia.png" />
       <h1>AST Explorer</h1>
       <SnippetButton {...props} />
       <ParserButton {...props} />
