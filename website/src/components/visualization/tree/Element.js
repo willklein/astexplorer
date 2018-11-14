@@ -289,7 +289,14 @@ let Element = class extends React.Component {
             this._toggleClick :
             null
         }>
-        <span className="name nb">
+        <span className="name nb" onClick={() => {
+          var dummy = document.createElement('input');
+          document.body.appendChild(dummy);
+          dummy.setAttribute('value', this.props.name);
+          dummy.select();
+          document.execCommand('copy');
+          document.body.removeChild(dummy);
+        }}>
           {this.props.computed ?
             <span title="computed">*{this.props.name}</span> :
             this.props.name
