@@ -75,6 +75,9 @@ export function getScale(state) {
   return state.scale;
 }
 
+export function getInfo(state) {
+  return state.info;
+}
 
 const isCodeDirty = createSelector(
   [getCode, getInitialCode],

@@ -21,7 +21,7 @@ import { astexplorer, persist, revive } from './store/reducers';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { canSaveTransform, getRevision } from './store/selectors';
 import { enableBatching } from 'redux-batched-actions';
-import { loadSnippet, scaleDown, scaleUp } from './store/actions';
+import { loadSnippet, scaleDown, scaleUp, setInfo } from './store/actions';
 import { render } from 'react-dom';
 import * as gist from './storage/gist';
 import * as parse from './storage/parse';
@@ -31,11 +31,24 @@ function resize() {
   PubSub.publish('PANEL_RESIZE');
 }
 
+function zenMode() {
+  document.getElementById('contribution').hidden = true
+}
+
 class App extends React.Component {
   constructor(props) {
     super(props)
 
     this.shortcuts = this.shortcuts.bind(this)
+
+
+    PubSub.subscribe('SET_INFO', (action, { value }) => {
+      props.setInfo(value)
+
+      setTimeout(() => {
+        props.setInfo('')
+      }, 3000)
+    })
   }
 
   componentDidMount() {
@@ -55,6 +68,10 @@ class App extends React.Component {
 
         case 'ArrowDown':
           this.props.onScaleDown()
+          break
+
+        case 'z':
+          zenMode()
       }
     }
   }
@@ -100,6 +117,7 @@ App.propTypes = {
   onScaleUp: PropTypes.func,
   scale: PropTypes.number,
   showTransformer: PropTypes.bool,
+  setInfo: PropTypes.func,
 };
 
 
@@ -112,6 +130,9 @@ function mapDispatchToProps(dispatch) {
     onScaleDown: () => {
       dispatch(scaleDown());
     },
+    setInfo: (value) => {
+      dispatch(setInfo(value));
+    }
   };
 }
 

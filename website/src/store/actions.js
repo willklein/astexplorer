@@ -29,6 +29,7 @@ export const SET_KEY_MAP = 'SET_KEY_MAP';
 export const LOAD_JS_SNIPPET = 'LOAD_JS_SNIPPET';
 export const SCALE_UP = 'SCALE_UP';
 export const SCALE_DOWN = 'SCALE_DOWN';
+export const SET_INFO = 'SET_INFO';
 
 export function setParser(parser) {
   return { type: SET_PARSER, parser };
@@ -155,3 +156,6 @@ export function scaleDown() {
   return { type: SCALE_DOWN };
 }
 
+export function setInfo(value) {
+  return { type: SET_INFO, value };
+}

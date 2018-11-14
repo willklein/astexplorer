@@ -44,6 +44,8 @@ const initialState = {
 
   enableFormatting: true,
 
+  info: '',
+
 };
 
 /**
@@ -100,7 +102,13 @@ export function astexplorer(state = initialState, action) {
     parserSettings: parserSettings(state.parserSettings, action, state),
     workbench: workbench(state.workbench, action, state),
     enableFormatting: format(state.enableFormatting, action, state),
+    info: info(state.info, action, state),
   };
+}
+
+function info(state = initialState.info, action) {
+  if (action.type === actions.SET_INFO) return action.value;
+  return state;
 }
 
 function format(state = initialState.enableFormatting, action) {

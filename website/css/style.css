@@ -398,6 +398,10 @@ li.entry {
   text-decoration: underline;
 }
 
+.name {
+  cursor: pointer;
+}
+
 .CodeMirror {
   height: 100%;
 }

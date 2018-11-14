@@ -290,12 +290,17 @@ let Element = class extends React.Component {
             null
         }>
         <span className="name nb" onClick={() => {
-          var dummy = document.createElement('input');
+          const dummy = document.createElement('input');
           document.body.appendChild(dummy);
           dummy.setAttribute('value', this.props.name);
           dummy.select();
           document.execCommand('copy');
           document.body.removeChild(dummy);
+
+          PubSub.publish(
+            'SET_INFO',
+            { value: `Copied: ${this.props.name}` }
+          );
         }}>
           {this.props.computed ?
             <span title="computed">*{this.props.name}</span> :

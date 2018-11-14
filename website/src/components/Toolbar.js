@@ -36,6 +36,9 @@ export default function Toolbar(props) {
       <SnippetButton {...props} />
       <ParserButton {...props} />
       <TransformButton {...props} />
+      <div id="info">
+        { props.info }
+      </div>
     </div>
   );
 }
@@ -52,4 +55,5 @@ Toolbar.propTypes = {
   parser: PropTypes.object,
   transformer: PropTypes.object,
   showTransformer: PropTypes.bool,
+  info: PropTypes.string,
 };
