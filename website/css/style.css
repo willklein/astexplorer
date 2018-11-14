@@ -361,7 +361,7 @@ li.entry {
   content: '+';
   color: green;
   position: absolute;
-  left: -10px;
+  left: -15px;
 }
 
 .entry.toggable.open::before {

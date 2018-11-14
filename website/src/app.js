@@ -16,13 +16,13 @@ import TransformerContainer from './containers/TransformerContainer';
 import createSagaMiddleware from 'redux-saga'
 import debounce from './utils/debounce';
 import saga from './store/sagas';
-import {Provider, connect} from 'react-redux';
-import {astexplorer, persist, revive} from './store/reducers';
-import {createStore, applyMiddleware, compose} from 'redux';
-import {canSaveTransform, getRevision} from './store/selectors';
-import {enableBatching} from 'redux-batched-actions';
-import {loadSnippet} from './store/actions';
-import {render} from 'react-dom';
+import { Provider, connect } from 'react-redux';
+import { astexplorer, persist, revive } from './store/reducers';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { canSaveTransform, getRevision } from './store/selectors';
+import { enableBatching } from 'redux-batched-actions';
+import { loadSnippet, scaleDown, scaleUp } from './store/actions';
+import { render } from 'react-dom';
 import * as gist from './storage/gist';
 import * as parse from './storage/parse';
 import StorageHandler from './storage';
@@ -31,47 +31,97 @@ function resize() {
   PubSub.publish('PANEL_RESIZE');
 }
 
-function App(props) {
-  return (
-    <div>
-      <ErrorMessageContainer />
-      <div className={'dropTarget' + (props.hasError ? ' hasError' : '')}>
-        <PasteDropTargetContainer>
-        <LoadingIndicatorContainer />
-        <SettingsDialogContainer />
-        <ShareDialogContainer />
-        <div id="root">
-          <ToolbarContainer />
-          <GistBanner />
-          <SplitPane
-            className="splitpane-content"
-            vertical={true}
-            onResize={resize}>
-            <SplitPane
-              className="splitpane"
-              onResize={resize}>
-              <CodeEditorContainer />
-              <ASTOutputContainer />
-            </SplitPane>
-            {props.showTransformer ? <TransformerContainer /> : null}
-          </SplitPane>
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.shortcuts = this.shortcuts.bind(this)
+  }
+
+  componentDidMount() {
+    document.addEventListener('keyup', this.shortcuts)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keyup', this.shortcuts)
+  }
+
+  shortcuts(event) {
+    if (event.altKey) {
+      switch (event.key) {
+        case 'ArrowUp':
+          this.props.onScaleUp()
+          break
+
+        case 'ArrowDown':
+          this.props.onScaleDown()
+      }
+    }
+  }
+
+  render() {
+
+    return (
+
+      <div>
+        <ErrorMessageContainer />
+        <div className={'dropTarget' + (this.props.hasError ? ' hasError' : '')}>
+          <PasteDropTargetContainer>
+            <LoadingIndicatorContainer />
+            <SettingsDialogContainer />
+            <ShareDialogContainer />
+            <div id="root">
+              <ToolbarContainer />
+              <GistBanner />
+              <SplitPane
+                className="splitpane-content"
+                vertical={true}
+                onResize={resize}>
+                <SplitPane
+                  className="splitpane"
+                  onResize={resize}
+                  scale={this.props.scale}>
+                  <CodeEditorContainer />
+                  <ASTOutputContainer />
+                </SplitPane>
+                {this.props.showTransformer ? <TransformerContainer /> : null}
+              </SplitPane>
+            </div>
+          </PasteDropTargetContainer>
         </div>
-        </PasteDropTargetContainer>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 App.propTypes = {
   hasError: PropTypes.bool,
+  onScaleDown: PropTypes.func,
+  onScaleUp: PropTypes.func,
+  scale: PropTypes.number,
   showTransformer: PropTypes.bool,
 };
+
+
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onScaleUp: () => {
+      dispatch(scaleUp());
+    },
+    onScaleDown: () => {
+      dispatch(scaleDown());
+    },
+  };
+}
 
 const AppContainer = connect(
   state => ({
     showTransformer: state.showTransformPanel,
     hasError: !!state.error,
-  })
+    scale: state.scale,
+  }),
+  mapDispatchToProps
 )(App);
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

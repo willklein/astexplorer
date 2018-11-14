@@ -15,6 +15,7 @@ const initialState = {
   error: null,
   showTransformPanel: false,
   showTreeSettings: false,
+  scale: 1.0,
 
   // Snippet related state
   selectedRevision: null,
@@ -89,6 +90,7 @@ export function astexplorer(state = initialState, action) {
     error: error(state.error, action),
     showTransformPanel: showTransformPanel(state.showTransformPanel, action),
     showTreeSettings: showTreeSettings(state.showTreeSettings, action),
+    scale: scale(state.scale, action),
 
     // Snippet related state
     activeRevision: activeRevision(state.activeRevision, action),
@@ -110,6 +112,17 @@ function format(state = initialState.enableFormatting, action) {
 function showTreeSettings(state = initialState.showTreeSettings, action) {
   if (action.type === actions.TOGGLE_TREE_SETTINGS) return !state;
   return state;
+}
+
+function scale(state = initialState.scale, action) {
+  switch (action.type) {
+    case actions.SCALE_UP:
+      return state + 0.2
+    case actions.SCALE_DOWN:
+      return state - 0.2
+  }
+
+  return state
 }
 
 function workbench(state = initialState.workbench, action, fullState) {

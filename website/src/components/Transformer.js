@@ -24,14 +24,15 @@ export default function Transformer(props) {
   );
 
   const formattingEditor = (<div>
-    <PrettierButton toggleFormatting={props.toggleFormatting} enableFormatting={props.enableFormatting}/>
+    <PrettierButton toggleFormatting={props.toggleFormatting} enableFormatting={props.enableFormatting} />
     {plainEditor}
   </div>)
 
   return (
     <SplitPane
       className="splitpane"
-      onResize={resize}>
+      onResize={resize}
+      scale={props.scale}>
       {formattingEditor}
       <TransformOutput
         transformer={props.transformer}

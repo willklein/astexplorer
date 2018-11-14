@@ -29,13 +29,14 @@ export default class SplitPane extends React.Component {
   }
 
   _onMouseDown() {
-    let {vertical} = this.props;
+    let { vertical } = this.props;
     let max = vertical ? global.innerHeight : global.innerWidth;
     global.document.body.style.cursor = vertical ? 'row-resize' : 'col-resize';
     let moveHandler = event => {
       event.preventDefault();
       this.setState({
-        dividerPosition: ((vertical ? event.pageY : event.pageX) / max) * 100});
+        dividerPosition: ((vertical ? event.pageY : event.pageX) / max) * 100
+      });
     };
     let upHandler = () => {
       document.removeEventListener('mousemove', moveHandler);
@@ -52,7 +53,7 @@ export default class SplitPane extends React.Component {
   }
 
   render() {
-    let {children} = this.props;
+    let { children } = this.props;
     let dividerPos = this.state.dividerPosition;
     let styleA;
     let styleB;
@@ -61,7 +62,7 @@ export default class SplitPane extends React.Component {
     if (!Array.isArray(children) || children.filter(x => x).length !== 2) {
       return (
         <div className={this.props.className}>
-          <div style={{position: 'absolute', top: 0, bottom: 0, left: 0, right: 0}}>
+          <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0 }}>
             {this.props.children}
           </div>
         </div>
@@ -97,6 +98,7 @@ export default class SplitPane extends React.Component {
         left: 0,
         width: dividerPos + '%',
         paddingRight: 3,
+        fontSize: (this.props.scale * 100) + '%',
       };
       // right
       styleB = {
@@ -104,6 +106,7 @@ export default class SplitPane extends React.Component {
         right: 0,
         width: (100 - dividerPos) + '%',
         paddingLeft: 3,
+        fontSize: (this.props.scale * 90) + '%',
       };
       dividerStyle = {
         ...baseStyleHorizontal,
@@ -139,4 +142,5 @@ SplitPane.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
   onResize: PropTypes.func,
+  scale: PropTypes.number,
 };
