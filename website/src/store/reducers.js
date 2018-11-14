@@ -42,7 +42,7 @@ const initialState = {
     },
   },
 
-  enableFormatting: false,
+  enableFormatting: true,
 
 };
 
