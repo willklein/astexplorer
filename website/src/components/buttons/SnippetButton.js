@@ -6,35 +6,35 @@ export default function SnippetButton({ onIntro, onVariables, onPatterns, onTran
     <div className="button menuButton">
       <span>
         <i className='fa fa-lg fa-file-code-o fa-fw' />
-        &nbsp;Snippet
+        &nbsp;Lessons
       </span>
       <ul>
         <li>
           <button
             type="button"
             onClick={onIntro}>
-            <i className="fa fa-file-o fa-fw" />&nbsp;Introduction
+            <i className="fa fa-file-code-o fa-fw" />&nbsp;Intro
           </button>
         </li>
         <li>
           <button
             type="button"
             onClick={onVariables}>
-            <i className="fa fa-file-o fa-fw" />&nbsp;Variables
+            <i className="fa fa-file-code-o fa-fw" />&nbsp;Variables
           </button>
         </li>
         <li>
           <button
             type="button"
             onClick={onPatterns}>
-            <i className="fa fa-file-o fa-fw" />&nbsp;Patterns
+            <i className="fa fa-file-code-o fa-fw" />&nbsp;Patterns
           </button>
         </li>
         <li>
           <button
             type="button"
             onClick={onTransforms}>
-            <i className="fa fa-file-o fa-fw" />&nbsp;Transforms
+            <i className="fa fa-file-code-o fa-fw" />&nbsp;Transforms
           </button>
         </li>
       </ul>
